@@ -81,11 +81,36 @@ exports.searchStudents = async (req, res) => {
     try {
         const searchname = RegExp(req.query.name, "i")
         const searchclass = RegExp(req.query.class, "i")
+        // const admNo = RegExp(req.query.admNo, "i")
         const admNo = req.query.admNo
+        
+        // console.log(Number(req.params.admNo));
+        // const students = await Student.find({admNo:admNo})
         var students
         if (req.query.name != '') students = await Student.find({ name: searchname }).sort({name:1})
         else if (req.query.class != '') students = await Student.find({ $and: [{ class: searchclass }, { tc: "No" }] }).sort({name:1})
         else students = await Student.find({ admNo: admNo })
+
+
+        const tmp=await Student.find({admNo})
+        // console.log(tmp)
+
+
+        res.status(200).json(students)
+    }
+    catch (err) {
+        res.status(500).json(err)
+    }
+}
+
+
+// for admit card
+
+exports.currentStudentSByClass=async (req, res) => {
+    try {
+        const searchclass = req.params.cls
+        var students
+        students = await Student.find({ $and: [{ class: searchclass }, { tc: "No" }] }).sort({rollNo:1})
 
         res.status(200).json(students)
     }

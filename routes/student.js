@@ -19,6 +19,7 @@ router.delete('/deletestudent/:id',verifyTokenAndAdmin,studentController.deleteS
 router.get('/getcurrentstudents',verifyTokenAndAuthorization,studentController.getCurrentStudents)
 router.get('/getstudentsbyclass/:cls',studentController.getStudentsByClass)
 router.put('/updateclass',verifyTokenAndAdmin,studentController.updateClassandRollNo)
+router.get('/admitcard/students/:cls',verifyTokenAndAuthorization,studentController.currentStudentSByClass)
 
 
 module.exports=router 
