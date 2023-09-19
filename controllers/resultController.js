@@ -176,7 +176,7 @@ exports.getStudentResultByClass = async (req, res) => {
         })
         res.status(200).json({
             success: true,
-            message: "Successfulll!",
+            message: "Successfull!",
             size: result.length,
             data: result
         })

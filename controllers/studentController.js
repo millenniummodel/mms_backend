@@ -87,7 +87,7 @@ exports.searchStudents = async (req, res) => {
         // console.log(Number(req.params.admNo));
         // const students = await Student.find({admNo:admNo})
         var students
-        if (req.query.name != '') students = await Student.find({ name: searchname }).sort({name:1})
+        if (req.query.name != '') students = await Student.find({ name: searchname },{admNo:1,name:1, class:1, rollNo:1}).sort({name:1})
         else if (req.query.class != '') students = await Student.find({ $and: [{ class: searchclass }, { tc: "No" }] }).sort({name:1})
         else students = await Student.find({ admNo: admNo })
 
@@ -110,7 +110,7 @@ exports.currentStudentSByClass=async (req, res) => {
     try {
         const searchclass = req.params.cls
         var students
-        students = await Student.find({ $and: [{ class: searchclass }, { tc: "No" }] }).sort({rollNo:1})
+        students = await Student.find({ $and: [{ class: searchclass }, { tc: "No" }] }, {name:1, class:1, rollNo:1, admNo:1}).sort({rollNo:1})
 
         res.status(200).json(students)
     }
